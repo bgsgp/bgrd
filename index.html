@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>丐点名将 | 智能随机点名器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', '微软雅黑', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%);
+            color: #eef;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            backdrop-filter: blur(2px);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #ffb347, #ff6b6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .version {
+            background: rgba(255, 107, 107, 0.2);
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 107, 107, 0.4);
+        }
+
+        .badge {
+            margin-top: 1rem;
+        }
+
+        .badge a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+            border-bottom: 1px dotted #ff6b6b;
+        }
+
+        .hero {
+            background: rgba(15, 25, 45, 0.6);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            backdrop-filter: blur(8px);
+            text-align: center;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: #0a0f1e;
+            font-weight: bold;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            margin: 0 0.5rem;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn:hover {
+            background: #ff8a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 107, 107, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: rgba(20, 30, 50, 0.5);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            border-color: #ff6b6b;
+            background: rgba(30, 40, 65, 0.6);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            color: #ccd;
+            font-size: 0.95rem;
+        }
+
+        .config-section {
+            background: rgba(10, 14, 26, 0.7);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin: 2rem 0;
+        }
+
+        .formula-box {
+            background: #0a0e1a;
+            border-left: 4px solid #ff6b6b;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+        }
+
+        .sys-req {
+            background: rgba(255, 100, 100, 0.1);
+            border-left: 4px solid #ff8888;
+            padding: 0.8rem 1rem;
+            border-radius: 0.8rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .download-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .download-table th {
+            text-align: left;
+            padding: 0.8rem 0.5rem;
+            font-weight: 600;
+            color: #ffb347;
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        .download-table td {
+            padding: 1rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 107, 107, 0.2);
+            vertical-align: middle;
+        }
+
+        .file-name {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-weight: 600;
+            color: #ffb347;
+        }
+
+        .badge-runtime {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ffb347;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 107, 107, 0.2);
+            font-size: 0.85rem;
+            color: #88a;
+        }
+
+        @media (max-width: 700px) {
+            h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .btn { padding: 0.6rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🎲 丐点名将</h1>
+        <div class="version">v5.2 | Python 核心 + C# 启动器</div>
+        <div class="badge">
+            <a href="#">Windows 10/11 x64</a>
+            <a href="https://github.com/bgsgp/bgrd/blob/main/LICENSE">MIT 开源</a>
+            <a href="https://github.com/bgsgp/bgrd">项目主页</a>
+        </div>
+    </header>
+
+    <div class="hero">
+        <p>🎤 智能语音播报 · 双主题切换 · GIF 抽选动画<br>
+        📋 仅需一个 names.txt，即可轻松点名，适合课堂、会议、活动抽选。</p>
+        <div>
+            <a href="https://github.com/bgsgp/bgrd/releases/latest" class="btn">⬇️ 立即下载</a>
+            <a href="https://github.com/bgsgp/bgrd" class="btn btn-outline">📂 GitHub 仓库</a>
+        </div>
+        <p style="font-size:0.8rem; margin-top:1rem;">前往 GitHub Releases 选择适合你的版本</p>
+    </div>
+
+    <div class="features">
+        <div class="card">
+            <h3>🐍 Python 核心</h3>
+            <p>基于 PySide6 构建 GUI，抽选逻辑高效稳定；支持自定义 GIF 动画、主题切换、语音播报。</p>
+        </div>
+        <div class="card">
+            <h3>⚙️ C# 启动器</h3>
+            <p>可选 Launcher 版本，提供简洁启动界面，自动检测环境并引导运行，便于多版本管理。</p>
+        </div>
+        <div class="card">
+            <h3>🎙️ 智能语音</h3>
+            <p>抽取结果自动朗读（支持开关），多人名单逐个清晰播报，告别“只读第一个”的烦恼。</p>
+        </div>
+        <div class="card">
+            <h3>🌓 双主题</h3>
+            <p>暗夜/亮色模式一键切换，保护视力，适应白天/夜晚使用环境。</p>
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>📦 安装版本</h2>
+        <p>本软件提供两种安装包，均面向 <strong>Windows 10/11 x64</strong> 系统，核心功能完全一致，区别在于是否附带 C# 启动器。</p>
+        <table class="download-table">
+            <thead>
+                <tr><th>安装包</th><th>内容说明</th><th>适用场景</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="file-name">bgrd_vx.x_Core_Setup.exe</span></td>
+                    <td><strong>Core 安装版</strong><br>仅包含 Python 核心程序（已打包为独立 exe，无需 Python 环境）</td>
+                    <td>直接运行点名器，轻量简洁，无额外组件</td>
+                </tr>
+                <tr>
+                    <td><span class="file-name">bgrd_vx.x_WithLauncher_Setup.exe</span></td>
+                    <td><strong>with launcher 安装版</strong><br>包含 C# 启动器 (.NET 10) + Python 核心程序</td>
+                    <td>提供启动器界面，可管理配置、快速访问设置，适合喜欢图形启动菜单的用户</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="sys-req">
+            ⚙️ <strong>系统要求</strong>：Windows 10 / 11（64 位）。含启动器版本需额外安装 <a href="https://dotnet.microsoft.com/download/dotnet/10.0" target="_blank" style="color:#ff6b6b;">.NET 运行时</a>。
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>📐 使用说明</h2>
+        <div class="formula-box">
+            <p>1️⃣ 下载并安装对应版本（建议以管理员身份安装）。<br>
+            2️⃣ 在程序安装目录（或启动器同目录）下创建 <strong>names.txt</strong>，UTF-8 编码，每行一个姓名。<br>
+            3️⃣ 启动程序<br>
+            4️⃣ 选择抽选人数（1~10），点击“开始抽选”。<br>
+            5️⃣ 结果以大字体显示，并自动语音播报（可在设置中关闭）。<br>
+            6️⃣ 点击右上角 ⚙️ 按钮可切换主题、开关语音。</p>
+        </div>
+        <p>🎨 <strong>自定义动画</strong>：将 <code>gt4-loading.gif</code> 或 <code>now-loading.gif</code> 放入程序目录，抽选时会随机播放。</p>
+    </div>
+
+    <div class="hero" style="background: rgba(0,0,0,0.4);">
+        <h3 style="margin-bottom: 0.5rem;">🚀 设计理念</h3>
+        <p>丐点名将源于课堂随机提问场景，追求“简单、快速、有趣”。<br>无数据库、无复杂配置，一个 txt 文件 + 一个 exe 即可运行，适合教师、主持人、活动组织者使用。</p>
+    </div>
+
+    <footer>
+        <p>丐点名将 | 开源随机点名工具 | 让点名变得更有趣</p>
+        <p>制作单位：丐帮集团第一院·物理版象棋开发与研究院™</p>
+        <p>核心开发：鬼狗子-Zero 清弦-Zero 灵芯-Zero 星睿-Zero</p>
+        <p><a href="https://github.com/bgsgp/bgrd" style="color:#ff6b6b;">GitHub 仓库</a> · <a href="#" style="color:#ff6b6b;">问题反馈</a></p>
+        <p>如果对你有帮助，欢迎给仓库点个 ⭐</p>
+    </footer>
+</div>
+</body>
+</html>
