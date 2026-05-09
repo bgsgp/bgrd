@@ -21,7 +21,7 @@ from settings_dialog import SettingsDialog
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.version = "5.2"
+        self.version = "5.3"
         self.config = ConfigManager()
         self.assets = AssetManager()
         self.theme_manager = ThemeManager(self.config)
