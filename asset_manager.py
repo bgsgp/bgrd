@@ -4,9 +4,9 @@ from typing import Optional
 
 class AssetManager:
     def resource_path(self, relative_path: str) -> str:
-        try:
-            base_path = sys._MEIPASS
-        except Exception:
+        if getattr(sys, 'frozen', False):
+            base_path = os.path.dirname(sys.executable)
+        else:
             base_path = os.path.abspath(".")
         return os.path.join(base_path, relative_path)
 
