@@ -1,6 +1,17 @@
-dist/
-build/
-*.exe
-*.pyc
-__pycache__/
+# Visual Studio 调试文件
+bin/
+obj/
 .vs/
+*.user
+*.suo
+*.pdb
+*.dll
+*.exe
+
+# 名单文件（所有 .txt）
+Assets/*.txt
+
+# 其他临时文件
+*.tmp
+*.log
+*.cache

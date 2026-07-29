@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Assets\dec.ico</ApplicationIcon>
+		<RootNamespace>bgrd</RootNamespace>
+		<AssemblyTitle>bgrd</AssemblyTitle>
+		<Title>丐点名将·队列</Title>
+		<Version>2.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+	</ItemGroup>
+
+	<!-- 添加 Windows 桌面框架（包含 System.Speech） -->
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+	</ItemGroup>
+
+	<!-- 使用 NuGet 包 System.Speech（兼容 .NET 5+ / .NET 10） -->
+	<ItemGroup>
+		<PackageReference Include="System.Speech" Version="11.0.0-preview.6.26359.118" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Assets\*.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>
