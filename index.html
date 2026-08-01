@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>丐点名将 · 队列</title>
+    <title>丐点名将™ 发布页 - 丐帮一院</title>
     <style>
-        /* ===== 双主题 CSS 变量 ===== */
-        /* 默认亮色主题（当 data-theme 未设置或为 light） */
         :root {
             --bg-body: #f5f2ed;
             --bg-container: #ffffff;
@@ -31,7 +29,6 @@
             --toggle-bg: #e0d6cc;
         }
 
-        /* 暗色主题（当 data-theme="dark"） */
         [data-theme="dark"] {
             --bg-body: #1e1a16;
             --bg-container: #2a2520;
@@ -56,7 +53,6 @@
             --toggle-bg: #3d352e;
         }
 
-        /* ===== 全局样式 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -75,7 +71,6 @@
             margin: 0 auto;
         }
 
-        /* ===== 头部 ===== */
         header {
             text-align: center;
             margin-bottom: 2.5rem;
@@ -150,7 +145,6 @@
         .badge.green { background: var(--badge-green); color: #fff; }
         .badge.orange { background: var(--badge-orange); color: #fff; }
 
-        /* ===== 英雄区 ===== */
         .hero {
             background: var(--bg-container);
             border-radius: 20px;
@@ -203,7 +197,6 @@
             box-shadow: none;
         }
 
-        /* ===== 卡片 ===== */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -234,7 +227,6 @@
             font-size: 0.95rem;
         }
 
-        /* ===== 表格 ===== */
         .config-section {
             background: var(--bg-container);
             border-radius: 20px;
@@ -292,7 +284,6 @@
             text-decoration: none;
         }
 
-        /* ===== 页脚 ===== */
         footer {
             text-align: center;
             margin-top: 3rem;
@@ -309,7 +300,6 @@
             text-decoration: underline;
         }
 
-        /* ===== 响应式 ===== */
         @media (max-width: 700px) {
             h1 { font-size: 2.2rem; }
             .hero p { font-size: 1rem; }
@@ -438,16 +428,13 @@
 
 <script>
     (function() {
-        // ===== 主题自动检测 + 手动切换 =====
         const toggleBtn = document.getElementById('themeToggle');
         const html = document.documentElement;
 
-        // 1. 检测系统主题（亮色/暗色）
         function getSystemTheme() {
             return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
 
-        // 2. 应用主题（设置 data-theme 属性）
         function applyTheme(theme) {
             if (theme === 'dark') {
                 html.setAttribute('data-theme', 'dark');
@@ -458,45 +445,36 @@
             }
         }
 
-        // 3. 读取存储的用户偏好，若无则跟随系统
         let stored = localStorage.getItem('bgrd-theme');
         let currentTheme;
 
         if (stored) {
-            // 用户手动设置过，使用存储的值
             currentTheme = stored;
         } else {
-            // 未设置，跟随系统
             currentTheme = getSystemTheme();
         }
         applyTheme(currentTheme);
 
-        // 4. 监听系统主题变化（仅在用户未手动覆盖时自动更新）
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         function handleSystemChange(e) {
-            // 如果没有存储过用户偏好（即用户从未点击切换），则跟随系统
             if (!localStorage.getItem('bgrd-theme')) {
                 const newTheme = e.matches ? 'dark' : 'light';
                 applyTheme(newTheme);
             }
         }
-        // 兼容旧浏览器
         if (mediaQuery.addEventListener) {
             mediaQuery.addEventListener('change', handleSystemChange);
         } else if (mediaQuery.addListener) {
             mediaQuery.addListener(handleSystemChange);
         }
 
-        // 5. 手动切换按钮
         toggleBtn.addEventListener('click', function() {
             const isDark = html.getAttribute('data-theme') === 'dark';
             const newTheme = isDark ? 'light' : 'dark';
             applyTheme(newTheme);
-            // 存储用户偏好
             localStorage.setItem('bgrd-theme', newTheme);
         });
 
-        // 6. 页面卸载时不需要清理，但保留即可
     })();
 </script>
 </body>
