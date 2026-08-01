@@ -2,379 +2,458 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>丐点名将 · 队列</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>丐点名将™ 发布页 - 丐帮集团</title>
     <style>
+        /* ===== 双主题 CSS 变量 ===== */
+        :root {
+            --bg-body: #f5f2ed;
+            --bg-container: #ffffff;
+            --bg-card: #f8faff;
+            --text-main: #1a2332;
+            --text-light: #4a6a8a;
+            --border: #d9d0c4;
+            --accent: #b54a3a;
+            --accent-light: #d97a6a;
+            --shadow: rgba(0,0,0,0.05);
+            --code-bg: #f0ece6;
+            --link: #b54a3a;
+            --btn-bg: #b54a3a;
+            --btn-hover: #d97a6a;
+            --table-header: #f2f6fa;
+            --border-table: #eaf2fb;
+            --badge-bg: #eaf2fb;
+            --badge-text: #1a2332;
+            --badge-blue: #4a9eff;
+            --badge-green: #2ecc71;
+            --badge-orange: #f39c12;
+        }
+        [data-theme="dark"] {
+            --bg-body: #1e1a16;
+            --bg-container: #2a2520;
+            --bg-card: #332d26;
+            --text-main: #ece4db;
+            --text-light: #b8aea2;
+            --border: #4a4038;
+            --accent: #e07a5a;
+            --accent-light: #f09a7a;
+            --shadow: rgba(0,0,0,0.4);
+            --code-bg: #3d352e;
+            --link: #e07a5a;
+            --btn-bg: #e07a5a;
+            --btn-hover: #f09a7a;
+            --table-header: #3d352e;
+            --border-table: #4a4038;
+            --badge-bg: #3d352e;
+            --badge-text: #ece4db;
+            --badge-blue: #4a9eff;
+            --badge-green: #2ecc71;
+            --badge-orange: #f39c12;
+        }
+
+        /* ===== 全局样式 ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            background: #f2f6fa;
-            color: #1a2332;
-            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
-            line-height: 1.7;
+            font-family: 'Segoe UI', '微软雅黑', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
             padding: 2rem 1rem;
+            transition: background 0.3s, color 0.3s;
         }
         .container {
-            max-width: 960px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 8px 30px rgba(26, 35, 50, 0.08);
         }
-        h1 {
+
+        /* ===== 头部 ===== */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background: var(--bg-container);
+            border-radius: 20px;
+            padding: 2rem 2rem 1.8rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            border: 1px solid var(--border);
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .header-top h1 {
             font-size: 2.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #1a2332 0%, #4a9eff 100%);
+            background: linear-gradient(135deg, var(--accent), #f39c12);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.5px;
-            margin-bottom: 0.3rem;
         }
-        .subhead {
+        .theme-toggle {
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 0.3rem 0.9rem;
+            cursor: pointer;
             font-size: 1.2rem;
-            color: #4a6a8a;
-            border-left: 4px solid #4a9eff;
-            padding-left: 1rem;
-            margin-bottom: 2rem;
+            color: var(--text-main);
+            transition: 0.2s;
+        }
+        .theme-toggle:hover {
+            background: var(--border);
+        }
+        .version {
+            background: var(--badge-bg);
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
         }
         .badge-group {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 0.6rem;
-            margin-bottom: 2rem;
+            margin-top: 0.5rem;
         }
         .badge {
-            background: #eaf2fb;
-            color: #1a2332;
+            background: var(--badge-bg);
+            color: var(--badge-text);
             padding: 0.2rem 0.9rem;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
+            border: 1px solid var(--border);
         }
-        .badge.blue {
-            background: #4a9eff;
-            color: #fff;
+        .badge.blue { background: var(--badge-blue); color: #fff; }
+        .badge.green { background: var(--badge-green); color: #fff; }
+        .badge.orange { background: var(--badge-orange); color: #fff; }
+
+        /* ===== 英雄区 ===== */
+        .hero {
+            background: var(--bg-container);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+            text-align: center;
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
         }
-        .badge.green {
-            background: #2ecc71;
-            color: #fff;
-        }
-        .badge.orange {
-            background: #f39c12;
-            color: #fff;
-        }
-        .section {
-            margin-top: 2.5rem;
-        }
-        .section h2 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #1a2332;
-            border-bottom: 2px solid #eaf2fb;
-            padding-bottom: 0.4rem;
-            margin-bottom: 1.2rem;
-        }
-        .section h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1a2332;
-            margin: 1.5rem 0 0.6rem 0;
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        .feature-card {
-            background: #f8faff;
-            border-radius: 12px;
-            padding: 1.2rem 1.4rem;
-            border: 1px solid #eaf2fb;
-        }
-        .feature-card .icon {
-            font-size: 1.6rem;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-        .feature-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-        .feature-card p {
-            font-size: 0.92rem;
-            color: #4a6a8a;
-            margin: 0;
-        }
-        .version-box {
-            background: #f8faff;
-            border-radius: 14px;
-            padding: 1.5rem 1.8rem;
-            margin: 1.2rem 0;
-            border-left: 5px solid #4a9eff;
-        }
-        .version-box.green {
-            border-left-color: #2ecc71;
-        }
-        .version-box.orange {
-            border-left-color: #f39c12;
-        }
-        .version-box .tag {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        .version-box .desc {
-            color: #4a6a8a;
-            margin-top: 0.2rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0 1.5rem 0;
-            font-size: 0.95rem;
-        }
-        th {
-            background: #f2f6fa;
-            text-align: left;
-            padding: 0.6rem 0.8rem;
-            font-weight: 600;
-            border-bottom: 2px solid #dce4ec;
-        }
-        td {
-            padding: 0.6rem 0.8rem;
-            border-bottom: 1px solid #eaf2fb;
-        }
-        .btn {
-            display: inline-block;
-            background: #1a2332;
-            color: #fff;
-            padding: 0.6rem 1.8rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-        .btn:hover {
-            background: #2a3a4a;
-        }
-        .btn.blue {
-            background: #4a9eff;
-        }
-        .btn.blue:hover {
-            background: #3a8aee;
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            color: var(--text-light);
         }
         .btn-group {
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 0.8rem;
-            margin: 1.5rem 0 0.5rem 0;
         }
-        .footnote {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #eaf2fb;
+        .btn {
+            display: inline-block;
+            background: var(--btn-bg);
+            color: #fff;
+            font-weight: 600;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(181, 74, 58, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(181, 74, 58, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--btn-bg);
+            color: var(--btn-bg);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: rgba(181, 74, 58, 0.1);
+            transform: translateY(-2px);
+            box-shadow: none;
+        }
+
+        /* ===== 卡片 ===== */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        .card {
+            background: var(--bg-container);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: var(--accent);
+        }
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-main);
+        }
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ===== 表格 ===== */
+        .config-section {
+            background: var(--bg-container);
+            border-radius: 20px;
+            padding: 1.8rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+        }
+        .config-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        .config-section p {
+            color: var(--text-light);
+        }
+        .download-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .download-table th {
+            background: var(--table-header);
+            text-align: left;
+            padding: 0.8rem 0.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border);
+        }
+        .download-table td {
+            padding: 1rem 0.5rem;
+            border-bottom: 1px solid var(--border-table);
+            vertical-align: middle;
+            color: var(--text-light);
+        }
+        .file-name {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .sys-req {
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent);
+            padding: 0.8rem 1rem;
+            border-radius: 0.8rem;
+            margin: 1rem 0;
             font-size: 0.9rem;
-            color: #6a8aaa;
-            text-align: center;
+            color: var(--text-light);
         }
-        .footnote a {
-            color: #4a9eff;
+        .sys-req a {
+            color: var(--link);
             text-decoration: none;
         }
+
+        /* ===== 页脚 ===== */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        footer a {
+            color: var(--link);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== 响应式 ===== */
         @media (max-width: 700px) {
-            .container {
-                padding: 1.5rem 1.2rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-            table {
-                font-size: 0.85rem;
-            }
-            .badge-group {
-                gap: 0.4rem;
-            }
+            h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .btn { padding: 0.6rem 1.2rem; }
+            .features { grid-template-columns: 1fr; }
+            .container { padding: 0; }
+            header { padding: 1.5rem; }
+            .header-top { flex-direction: column; align-items: center; gap: 0.8rem; }
+            .download-table { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-
-        <h1>🎯 丐点名将 · 队列</h1>
-        <div class="subhead">
-            轻量级多级随机点名工具 · 支持 Python 主版本 &amp; C# / WPF 原生版本
+<div class="container">
+    <header>
+        <div class="header-top">
+            <h1>🎲 丐点名将™</h1>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换主题">🌓</button>
         </div>
-
+        <div class="version">v5.3 (Python) / v2.4 (C# WPF) · 双版本并行</div>
         <div class="badge-group">
-            <span class="badge blue">v5.3 (Python)</span>
-            <span class="badge green">v2.4 (C# / WPF)</span>
-            <span class="badge">智能语音播报</span>
-            <span class="badge">双主题切换</span>
+            <span class="badge blue">Python 主版</span>
+            <span class="badge green">C# WPF 延伸</span>
+            <span class="badge">智能语音</span>
+            <span class="badge">双主题</span>
             <span class="badge">多级队列</span>
-            <span class="badge">GIF 抽选动画</span>
+            <span class="badge">GIF 动画</span>
         </div>
+    </header>
 
-        <!-- ===== 项目概览 ===== -->
-        <div class="section">
-            <h2>📌 项目概览</h2>
-            <p style="font-size:1.05rem;">
-                “丐点名将·队列” 是一款轻量级、多级随机点名工具，专为课堂、会议、活动抽选设计。
-                它支持 <strong>多级队列管理</strong>（每个队列对应一个独立的名单文件），可随机抽取指定人数，
-                并具备 <strong>语音播报</strong>、<strong>主题切换</strong>、<strong>配置持久化</strong> 等增强特性。
-            </p>
-            <p style="margin-top:0.6rem;">
-                项目包含两个主要分支：
-            </p>
-            <div class="version-box">
-                <div class="tag">🐍 Python 主版本（<code>python</code> 分支）</div>
-                <div class="desc">
-                    基于 Python + PySide6 构建，跨平台支持（Windows / Linux / macOS），稳定可靠。
-                    采用模块化设计，包含完整的点名功能、主题切换、语音播报、配置持久化等。
-                </div>
-            </div>
-            <div class="version-box green">
-                <div class="tag">🖥️ C# / WPF 延伸版本（<code>csharp</code> 分支）</div>
-                <div class="desc">
-                    基于 <strong>.NET 10</strong> + <strong>C# 14</strong> 完全重写，采用 <strong>MVVM 架构</strong>，
-                    提供更流畅的 UI 交互、自动主题适配、原生语音引擎。此版本是 Python 主版本的功能延伸，
-                    为 Windows 用户提供更现代化、更原生的操作体验。
-                </div>
-            </div>
+    <div class="hero">
+        <p>🎤 智能语音播报 · 双主题一键切换 · 多级队列管理<br>
+        📋 仅需一个 <code>names.txt</code> 即可运行，适合课堂、会议、活动抽选。</p>
+        <div class="btn-group">
+            <a href="https://github.com/bgsgp/bgrd/releases/latest" class="btn">⬇️ 立即下载</a>
+            <a href="https://github.com/bgsgp/bgrd" class="btn btn-outline">📂 GitHub 仓库</a>
         </div>
+        <p style="font-size:0.8rem; margin-top:1rem; color:var(--text-light);">前往 GitHub Releases 选择适合你的版本</p>
+    </div>
 
-        <!-- ===== 功能特性 ===== -->
-        <div class="section">
-            <h2>✨ 功能特性</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="icon">📂</span>
-                    <h4>多级队列管理</h4>
-                    <p>启动时自动加载 <code>1.txt</code> 作为第1层，支持通过界面 ➕ 按钮无限添加新队列，每个队列独立绑定名单文件。</p>
-                </div>
-                <div class="feature-card">
-                    <span class="icon">🎲</span>
-                    <h4>随机抽取</h4>
-                    <p>从当前队列中抽取指定人数，结果以大字体居中展示，清晰醒目。</p>
-                </div>
-                <div class="feature-card">
-                    <span class="icon">🔊</span>
-                    <h4>智能语音播报</h4>
-                    <p>基于系统 TTS 引擎，自动朗读被点中姓名，支持一键开关，多人名单逐个清晰播报。</p>
-                </div>
-                <div class="feature-card">
-                    <span class="icon">🌓</span>
-                    <h4>双主题切换</h4>
-                    <p>暗夜 / 亮色模式一键切换，保护视力，适应白天 / 夜晚使用环境。WPF 版本支持自动适配系统主题。</p>
-                </div>
-                <div class="feature-card">
-                    <span class="icon">⚙️</span>
-                    <h4>配置持久化</h4>
-                    <p>队列列表、抽取人数、主题偏好、语音开关等自动保存，下次启动无缝恢复。</p>
-                </div>
-                <div class="feature-card">
-                    <span class="icon">🎬</span>
-                    <h4>GIF 抽选动画</h4>
-                    <p>将 <code>gt4-loading.gif</code> 或 <code>now-loading.gif</code> 放入程序目录，抽选时随机播放，增加趣味性。</p>
-                </div>
-            </div>
+    <div class="features">
+        <div class="card">
+            <h3>🐍 Python 主版本</h3>
+            <p>基于 PySide6 构建，跨平台支持（Windows/Linux/macOS），稳定可靠。模块化设计，包含完整的点名、语音、主题、配置功能。</p>
         </div>
-
-        <!-- ===== 安装版本 ===== -->
-        <div class="section">
-            <h2>📦 安装版本</h2>
-            <p>本软件提供两种安装包，均面向 <strong>Windows 10 / 11（64 位）</strong> 系统，核心功能完全一致，区别在于技术实现和交互体验。</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:28%;">安装包</th>
-                        <th style="width:42%;">内容说明</th>
-                        <th style="width:30%;">适用场景</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>bgrd_v5.3_Core_Setup.exe</code></td>
-                        <td><strong>Python 核心版</strong><br>基于 PySide6 构建，已打包为独立 exe，无需 Python 环境</td>
-                        <td>轻量简洁，直接运行点名器</td>
-                    </tr>
-                    <tr>
-                        <td><code>bgrd_v2.4_WPF_Setup.exe</code></td>
-                        <td><strong>C# / WPF 原生版</strong><br>基于 .NET 10 + WPF 构建，MVVM 架构，原生 Windows 体验</td>
-                        <td>追求更流畅的 UI 和现代化交互体验</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div style="background:#f8faff;border-radius:12px;padding:1rem 1.4rem;border:1px solid #eaf2fb;">
-                <p style="margin:0;font-size:0.95rem;">
-                    ⚙️ <strong>系统要求：</strong>Windows 10 / 11（64 位）。
-                    WPF 版本需安装 <a href="https://dotnet.microsoft.com/download/dotnet/10.0" target="_blank">.NET 10 运行时</a>。
-                </p>
-            </div>
+        <div class="card">
+            <h3>🖥️ C# WPF 延伸版</h3>
+            <p>基于 .NET 10 + C# 14 完全重写，采用 MVVM 架构，原生 Windows 体验，UI 更流畅，自动适配系统主题。</p>
         </div>
+        <div class="card">
+            <h3>🎙️ 智能语音播报</h3>
+            <p>抽取结果自动朗读，多人名单逐个清晰播报，支持一键开关，告别“只读第一个”的烦恼。</p>
+        </div>
+        <div class="card">
+            <h3>🌓 双主题切换</h3>
+            <p>暗夜/亮色模式一键切换，保护视力，适应白天/夜晚使用环境。WPF 版支持自动适配系统主题。</p>
+        </div>
+    </div>
 
-        <!-- ===== 使用说明 ===== -->
-        <div class="section">
-            <h2>📖 使用说明</h2>
-            <ol style="padding-left:1.4rem;margin:0.5rem 0 0.5rem 0;">
+    <div class="config-section">
+        <h2>📦 安装版本</h2>
+        <p>本软件提供两种安装包，均面向 <strong>Windows 10/11 x64</strong> 系统，核心功能完全一致，区别在于技术实现和交互体验。</p>
+        <table class="download-table">
+            <thead>
+                <tr><th>安装包</th><th>内容说明</th><th>适用场景</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="file-name">bgrd_v5.3_Core_Setup.exe</span></td>
+                    <td><strong>Python 核心版</strong><br>基于 PySide6 构建，已打包为独立 exe，无需 Python 环境</td>
+                    <td>轻量简洁，直接运行点名器</td>
+                </tr>
+                <tr>
+                    <td><span class="file-name">bgrd_v2.4_WPF_Setup.exe</span></td>
+                    <td><strong>C# / WPF 原生版</strong><br>基于 .NET 10 + WPF，MVVM 架构，原生 Windows 体验</td>
+                    <td>追求更流畅的 UI 和现代化交互体验</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="sys-req">
+            ⚙️ <strong>系统要求</strong>：Windows 10 / 11（64 位）。WPF 版本需安装 <a href="https://dotnet.microsoft.com/download/dotnet/10.0" target="_blank">.NET 10 运行时</a>。
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>📐 使用说明</h2>
+        <div style="background:var(--bg-card);border-radius:1rem;padding:1.5rem;border:1px solid var(--border);">
+            <ol style="padding-left:1.5rem;color:var(--text-light);">
                 <li><strong>下载并安装</strong> 对应版本（建议以管理员身份安装）。</li>
                 <li><strong>准备名单文件</strong>：在 <code>Assets</code> 目录下创建 <code>1.txt</code>（UTF‑8 编码，每行一个姓名）。<br>
-                    <span style="color:#4a6a8a;font-size:0.9rem;">💡 WPF 版本支持多级队列：可放置 <code>1.txt</code>、<code>2.txt</code>…… 或通过界面 ➕ 按钮添加任意队列。</span>
+                    <span style="font-size:0.9rem;">💡 WPF 版本支持多级队列：可放置 <code>1.txt</code>、<code>2.txt</code>…… 或通过界面 ➕ 按钮添加任意队列。</span>
                 </li>
                 <li><strong>启动程序</strong>，选择队列（如有多个）。</li>
                 <li><strong>设置抽取人数</strong>（1~999），点击“开始抽选”。</li>
                 <li>结果以大字体显示，并自动语音播报（可在设置中关闭）。</li>
                 <li>点击右上角 <strong>⚙️</strong> 按钮可切换主题、开关语音。</li>
             </ol>
-            <p style="margin-top:0.6rem;font-size:0.95rem;color:#4a6a8a;">
+            <p style="margin-top:1rem;color:var(--text-light);">
                 🎬 <strong>自定义动画：</strong>将 <code>gt4-loading.gif</code> 或 <code>now-loading.gif</code> 放入程序目录，抽选时会随机播放。
             </p>
         </div>
-
-        <!-- ===== 设计理念 ===== -->
-        <div class="section">
-            <h2>💡 设计理念</h2>
-            <p>
-                丐点名将源于课堂随机提问场景，追求 <strong>“简单、快速、有趣”</strong>。
-                无数据库、无复杂配置，一个 <code>txt</code> 文件 + 一个 <code>exe</code> 即可运行，
-                适合教师、主持人、活动组织者使用。
-            </p>
-            <p style="margin-top:0.6rem;">
-                WPF 版本的推出，旨在为 Windows 用户提供 <strong>更原生、更流畅</strong> 的桌面体验，
-                同时保留 Python 主版本的跨平台特性，满足不同用户的需求。
-            </p>
-        </div>
-
-        <!-- ===== 下载与链接 ===== -->
-        <div class="section" style="margin-top:2.5rem;">
-            <h2>🔗 下载与链接</h2>
-            <div class="btn-group">
-                <a href="https://github.com/bgsgp/bgrd/releases" class="btn blue">📥 GitHub Releases</a>
-                <a href="https://github.com/bgsgp/bgrd" class="btn">🐙 GitHub 仓库</a>
-                <a href="https://github.com/bgsgp/bgrd/tree/csharp" class="btn">🖥️ C# 分支</a>
-                <a href="https://github.com/bgsgp/bgrd/tree/python" class="btn">🐍 Python 分支</a>
-            </div>
-        </div>
-
-        <!-- ===== 页脚 ===== -->
-        <div class="footnote">
-            © 2019-2026，丐帮集团第一院 · 物理版象棋开发与研究院™ &nbsp;·&nbsp;
-            开发者：鬼狗子-Zero、清弦-Zero、月汐-Zero、灵芯-Zero、星睿-Zero<br>
-            本项目仅供学习、交流与非商业用途。<br>
-            <a href="https://bgsgp.github.io/bgrd">https://bgsgp.github.io/bgrd</a>
-        </div>
-
     </div>
+
+    <div class="config-section" style="background:var(--bg-card);border:1px solid var(--border);">
+        <h2 style="border-bottom-color:var(--border);">🚀 设计理念</h2>
+        <p style="color:var(--text-light);">
+            丐点名将源于课堂随机提问场景，追求 <strong>“简单、快速、有趣”</strong>。
+            无数据库、无复杂配置，一个 <code>txt</code> 文件 + 一个 <code>exe</code> 即可运行，
+            适合教师、主持人、活动组织者使用。
+        </p>
+        <p style="margin-top:0.6rem;color:var(--text-light);">
+            WPF 版本的推出，旨在为 Windows 用户提供 <strong>更原生、更流畅</strong> 的桌面体验，
+            同时保留 Python 主版本的跨平台特性，满足不同用户的需求。
+        </p>
+    </div>
+
+    <footer>
+        <p>丐点名将 · 开源随机点名工具 · 让点名变得更有趣</p>
+        <p>制作单位：丐帮集团第一院 · 物理版象棋开发与研究院™</p>
+        <p>核心开发：鬼狗子-Zero · 清弦-Zero · 月汐-Zero · 灵芯-Zero · 星睿-Zero</p>
+        <p><a href="https://github.com/bgsgp/bgrd">GitHub 仓库</a> · <a href="https://github.com/bgsgp/bgrd/issues">问题反馈</a></p>
+        <p>如果对你有帮助，欢迎给仓库点个 ⭐</p>
+        <p style="margin-top:0.5rem;font-size:0.8rem;">© 2019-2026 丐帮集团第一院 · 物理版象棋开发与研究院™  · 仅供学习、交流与非商业用途</p>
+    </footer>
+</div>
+
+<script>
+    // ===== 主题切换 =====
+    (function() {
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        // 读取存储的主题
+        let currentTheme = localStorage.getItem('bgrd-theme') || 'light';
+        if (currentTheme === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+            toggle.textContent = '☀️';
+        } else {
+            html.removeAttribute('data-theme');
+            toggle.textContent = '🌓';
+        }
+        toggle.addEventListener('click', function() {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('bgrd-theme', 'light');
+                toggle.textContent = '🌓';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('bgrd-theme', 'dark');
+                toggle.textContent = '☀️';
+            }
+        });
+    })();
+</script>
 </body>
 </html>
